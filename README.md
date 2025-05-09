@@ -1,2 +1,1 @@
-# rabbitmq-quorum
-A Spring Boot application to connect to RabbitMQ with Quorum Queues
+This repository is empty. Any task executed on it should be considered a new capability and needs to be created.
