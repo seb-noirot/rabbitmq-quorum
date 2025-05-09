@@ -34,7 +34,7 @@ public class RabbitMQConfig {
     static final String ROUTING_KEY_2 = "#";
     static final String ROUTING_KEY_3 = "#";
 
-    @Bean
+    @Bean(name = "quorumRabbitAdmin")
     public AmqpAdmin amqpAdmin(ConnectionFactory connectionFactory) {
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
         rabbitAdmin.afterPropertiesSet();
@@ -42,7 +42,7 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    TopicExchange topicExchange(AmqpAdmin amqpAdmin) {
+    TopicExchange topicExchange(@Qualifier("quorumRabbitAdmin") AmqpAdmin amqpAdmin) {
         return ExchangeBuilder.topicExchange(EXCHANGE_NAME)
                 .durable(true)
                 .admins(amqpAdmin)
@@ -50,17 +50,17 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    Queue queue1(AmqpAdmin amqpAdmin) {
+    Queue queue1(@Qualifier("quorumRabbitAdmin")AmqpAdmin amqpAdmin) {
         return createQueue(amqpAdmin, QUEUE_1_NAME);
     }
 
     @Bean
-    Queue queue2(AmqpAdmin amqpAdmin) {
+    Queue queue2(@Qualifier("quorumRabbitAdmin")AmqpAdmin amqpAdmin) {
         return createQueue(amqpAdmin, QUEUE_2_NAME);
     }
 
     @Bean
-    Queue queue3(AmqpAdmin amqpAdmin) {
+    Queue queue3(@Qualifier("quorumRabbitAdmin")AmqpAdmin amqpAdmin) {
         return createQueue(amqpAdmin, QUEUE_3_NAME);
     }
 
